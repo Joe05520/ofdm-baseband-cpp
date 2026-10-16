@@ -1,0 +1,27 @@
+name: C++ build and signal-processing tests
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  test:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            compiler: g++
+          - os: macos-latest
+            compiler: clang++
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build and test C++ transceiver
+        run: make CXX=${{ matrix.compiler }} all test test-multipath
+      - name: Run reduced-bit C++ smoke simulation
+        run: ./bin/ofdm smoke 262144 64
+      - name: Check retained C++ experiment data
+        run: |
+          python3 scripts/unpack_evidence.py
+          python3 scripts/summarize_results.py

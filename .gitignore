@@ -1,0 +1,8 @@
+bin/
+.DS_Store
+__pycache__/
+*.pyc
+smoke/
+rerun/
+/results/sync_fine_trials.csv
+/results/sync_selection_trials.csv

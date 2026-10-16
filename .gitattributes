@@ -1,0 +1,7 @@
+# Signal-processing implementation is C++; MATLAB files support verification and figures.
+matlab/** linguist-documentation=true
+results/** linguist-generated=true
+figures_matlab/** linguist-generated=true
+*.fig binary
+*.png binary
+*.gz binary
